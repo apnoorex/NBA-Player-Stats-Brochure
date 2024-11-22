@@ -13,10 +13,10 @@ stats_graph_color = '#658585'
 earnings_graph_color = '#677e84'
 linewidth = 1.4
 
-def create_img(model, fig):
-    fig.savefig('tmp.png')
-    model.image('tmp.png', x=5, h=20)
-    os.remove('tmp.png')
+def create_img(model, fig, name):
+    fig.savefig(f'{name}.png')
+    model.image(f'{name}.png', x=5, h=20)
+    os.remove(f'{name}.png')
 
 def set_graph_parameters(ax, title_str):
     ax.spines['bottom'].set_color(graph_text_color)
@@ -26,12 +26,6 @@ def set_graph_parameters(ax, title_str):
     ax.tick_params(axis='x', colors=graph_text_color)
     ax.tick_params(axis='y', colors=graph_text_color)
     plt.title(title_str, x=0.9, y=0.9, fontsize=8, font='Noto Sans', color='#808080')
-
-def print_stats_graph(x, y, model, title_str):
-    fig, ax = plt.subplots(figsize=(11, 2))
-    plt.plot(x, y, color=stats_graph_color, linewidth=linewidth)
-    set_graph_parameters(ax, title_str)
-    create_img(model, fig)
 
 def print_line(model, y_space, x_space, text, size, style):
     model.set_font('helvetica', style=style, size=size)
@@ -112,11 +106,28 @@ def create_pdf(player):
     pdf.ln(5)
 
     # Points per game
-    print_stats_graph(years, points, pdf, 'Points per game')
+    fig, ax = plt.subplots(figsize=(11, 2))
+    plt.plot(years, points, color=stats_graph_color, linewidth=linewidth)
+    set_graph_parameters(ax, 'Points per game')
+    fig.savefig('tmp1.png')
+    pdf.image('tmp1.png', x=5, h=20)
+    os.remove('tmp1.png')
+
     # Assists per game
-    print_stats_graph(years, assists, pdf, 'Assists per game')
+    fig, ax = plt.subplots(figsize=(11, 2))
+    plt.plot(years, assists, color=stats_graph_color, linewidth=linewidth)
+    set_graph_parameters(ax, 'Assists per game')
+    fig.savefig('tmp2.png')
+    pdf.image('tmp2.png', x=5, h=20)
+    os.remove('tmp2.png')
+
     # Rebounds per game
-    print_stats_graph(years, rebounds, pdf, 'Rebounds per game')
+    fig, ax = plt.subplots(figsize=(11, 2))
+    plt.plot(years, rebounds, color=stats_graph_color, linewidth=linewidth)
+    set_graph_parameters(ax, 'Rebounds per game')
+    fig.savefig('tmp3.png')
+    pdf.image('tmp3.png', x=5, h=20)
+    os.remove('tmp3.png')
 
     # Earnings per year statement
     print_line(pdf, 7, 0.01, 'Earnings per year:', 8, '')
