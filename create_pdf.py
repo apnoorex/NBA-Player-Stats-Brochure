@@ -112,9 +112,9 @@ def create_pdf(player):
     pdf.ln(5)
 
     # Points per game
-    print_stats_graph(years, assists, pdf, 'Points per game')
+    print_stats_graph(years, points, pdf, 'Points per game')
     # Assists per game
-    print_stats_graph(years, points, pdf, 'Assists per game')
+    print_stats_graph(years, assists, pdf, 'Assists per game')
     # Rebounds per game
     print_stats_graph(years, rebounds, pdf, 'Rebounds per game')
 
